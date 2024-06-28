@@ -101,7 +101,7 @@ class _AssistState extends State<Assist> {
                           decoration: BoxDecoration(
                             color: message.isSentByMe
                                 ? Colors.blue
-                                : Colors.grey[300],
+                                : Color.fromARGB(255, 237, 237, 237),
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
                                 topRight: Radius.circular(20),
@@ -232,6 +232,7 @@ class _AssistState extends State<Assist> {
                           Icon(
                             Icons.auto_awesome,
                             size: 12,
+                            color: Colors.lightBlue[300],
                           ),
                           Text(' Gemini AI', style: TextStyle(fontSize: 12)),
                         ],
