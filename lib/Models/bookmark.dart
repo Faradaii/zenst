@@ -1,5 +1,5 @@
 class Bookmark {
-  int? id;
+  String? id;
   late int userId;
   late String imagePath;
 
