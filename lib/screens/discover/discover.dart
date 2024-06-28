@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:jumping_dot/jumping_dot.dart';
 import 'package:wakelock/wakelock.dart';
+import 'package:zenst/models/bookmark.dart';
+import 'package:zenst/databases/db_helper.dart';
 import 'package:zenst/models/apis/videos.dart';
 import 'package:zenst/screens/discover/components/videopost.dart';
 import 'package:zenst/services/api_service.dart';
@@ -40,7 +43,7 @@ class _DiscoverState extends State<Discover> {
         future: _videosFuture,
         builder: (context, snapshot) {
           if (snapshot.hasError || !snapshot.hasData) {
-            return Center(child: Text('Error: ${snapshot.error}'));
+            return Center(child: JumpingDots(color: Colors.lightBlue[300]!));
           } else {
             final videos = snapshot.data!;
             return PageView.builder(
@@ -109,7 +112,7 @@ class _DiscoverState extends State<Discover> {
                                       NetworkImage(videos[index].author.avatar),
                                   fit: BoxFit.cover))),
                       SizedBox(
-                        width: 5,
+                        width: 8,
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,38 +140,37 @@ class _DiscoverState extends State<Discover> {
                     height: 15,
                   ),
                   RichText(
-                      textAlign: TextAlign.justify,
                       text: TextSpan(children: [
-                        TextSpan(
-                          text: videos[index].title.toString().substring(
-                              0,
-                              videos[index].title.toString().length > 100
-                                  ? (isExpandText
-                                      ? videos[index].title.toString().length
-                                      : 100)
-                                  : videos[index].title.toString().length),
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
-                        ),
-                        if (videos[index].title.toString().length > 100)
-                          WidgetSpan(
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isExpandText = !isExpandText;
-                                });
-                              },
-                              child: Text(
-                                isExpandText ? '\t\tSee less' : '\t\tSee more',
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
+                    TextSpan(
+                      text: videos[index].title.toString().substring(
+                          0,
+                          videos[index].title.toString().length > 100
+                              ? (isExpandText
+                                  ? videos[index].title.toString().length
+                                  : 100)
+                              : videos[index].title.toString().length),
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    if (videos[index].title.toString().length > 100)
+                      WidgetSpan(
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isExpandText = !isExpandText;
+                            });
+                          },
+                          child: Text(
+                            isExpandText ? '\t\tSee less' : '\t\tSee more',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
                             ),
                           ),
-                      ])),
+                        ),
+                      ),
+                  ])),
                 ],
               ),
             ),
@@ -212,7 +214,20 @@ class _DiscoverState extends State<Discover> {
                 Column(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        DatabaseHelper().insertBookmark(Bookmark(
+                            id: videos[index].id,
+                            userId: widget.userIdLogged,
+                            imagePath: videos[index].cover));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Video Bookmarked!'),
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.lightBlue[400],
+                            showCloseIcon: true,
+                          ),
+                        );
+                      },
                       icon: Icon(Icons.bookmark_outlined,
                           color: const Color.fromRGBO(255, 255, 255, 0.85)),
                       iconSize: 40,
@@ -227,10 +242,11 @@ class _DiscoverState extends State<Discover> {
                   height: 15,
                 ),
                 Container(
-                    width: 20,
-                    height: 20,
+                    width: 30,
+                    height: 30,
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
+                        border: Border.all(color: Colors.white),
                         borderRadius: BorderRadius.all(Radius.circular(99)),
                         image: DecorationImage(
                             image: NetworkImage(videos[index].musicCover),
