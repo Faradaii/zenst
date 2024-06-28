@@ -41,6 +41,7 @@ class _VideoPostState extends State<VideoPost>
   void dispose() {
     _controller.pause();
     _controller.dispose();
+
     Wakelock.disable();
     super.dispose();
   }
@@ -49,9 +50,9 @@ class _VideoPostState extends State<VideoPost>
   void didUpdateWidget(covariant VideoPost oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.isVisible) {
-      _controller.seekTo(Duration(milliseconds: 0));
       _controller.play();
     } else {
+      _controller.seekTo(Duration(milliseconds: 0));
       _controller.pause();
     }
   }
@@ -62,7 +63,8 @@ class _VideoPostState extends State<VideoPost>
     return FutureBuilder(
       future: _initializeVideoPlayerFuture,
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            !snapshot.hasError) {
           return GestureDetector(
             onTap: () {
               setState(() {

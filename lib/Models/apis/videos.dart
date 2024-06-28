@@ -6,10 +6,13 @@ class Video {
   final String cover;
   final String videoUrl;
   final String musicUrl;
+  final String musicCover;
   final int duration;
   final int createTime;
   final String region;
   final Author author;
+  final int diggCount;
+  final int commentCount;
 
   Video({
     required this.id,
@@ -17,10 +20,13 @@ class Video {
     required this.cover,
     required this.videoUrl,
     required this.musicUrl,
+    required this.musicCover,
     required this.duration,
     required this.createTime,
     required this.region,
     required this.author,
+    required this.diggCount,
+    required this.commentCount,
   });
 
   factory Video.fromJson(Map<String, dynamic> json) {
@@ -30,10 +36,13 @@ class Video {
       cover: json['cover'],
       videoUrl: json['play'],
       musicUrl: json['music_info']['play'],
+      musicCover: json['music_info']['cover'],
       duration: json['duration'],
       createTime: json['create_time'],
       region: json['region'],
       author: Author.fromJson(json['author']),
+      diggCount: json['digg_count'],
+      commentCount: json['comment_count'],
     );
   }
 }
