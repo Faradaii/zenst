@@ -31,7 +31,7 @@ class Video {
 
   factory Video.fromJson(Map<String, dynamic> json) {
     return Video(
-      id: json['aweme_id'],
+      id: json['video_id'],
       title: json['title'],
       cover: json['cover'],
       videoUrl: json['play'],

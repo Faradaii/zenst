@@ -54,7 +54,7 @@ class DatabaseHelper {
 
     await db.execute('''
       CREATE TABLE bookmark (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT PRIMARY KEY,
         userId INTEGER,
         imagePath TEXT,
         FOREIGN KEY(userId) REFERENCES users(id)
@@ -157,8 +157,15 @@ class DatabaseHelper {
       return Bookmark.fromMap(maps[i]);
     });
   }
+  Future<List<String>> getAllBookmarksString() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('bookmark');
+    return List.generate(maps.length, (i) {
+      return maps[i]['id'].toString();
+    });
+  }
 
-  Future<Bookmark?> getBookmarkById(int id) async {
+  Future<bool> getBookmarkById(String id) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
       'bookmark',
@@ -166,8 +173,8 @@ class DatabaseHelper {
       whereArgs: [id],
     );
     if (maps.isNotEmpty) {
-      return Bookmark.fromMap(maps.first);
+      return true;
     }
-    return null;
+    return false;
   }
 }
