@@ -212,7 +212,22 @@ class _AssistState extends State<Assist> {
                               decoration: InputDecoration(
                                 hintText: 'Minta saran ke Gemini...',
                                 fillColor: Colors.black,
-                                border: OutlineInputBorder(),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.grey, width: 1.0),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15.0)),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.lightBlue, width: 2.0),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(15.0)),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(30.0)),
+                                ),
                               ),
                             ),
                           ),
