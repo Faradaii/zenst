@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jumping_dot/jumping_dot.dart';
 import 'package:zenst/models/notification.dart';
 import 'package:zenst/databases/db_helper.dart';
 
@@ -28,21 +27,7 @@ class _NotificationPageState extends State<NotificationPage> {
         future: _notification,
         builder: (context, snapshot) {
           if (snapshot.hasError || !snapshot.hasData) {
-            return Center(
-                child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.width / 1.5,
-                  width: MediaQuery.of(context).size.width / 1.5,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/images/ilust-3.png'),
-                          fit: BoxFit.cover)),
-                ),
-                Text('Belum ada Notifikasi !')
-              ],
-            ));
+            return noNotification();
           } else {
             final notif = snapshot.data!;
             return ListView.separated(
@@ -62,7 +47,7 @@ class _NotificationPageState extends State<NotificationPage> {
                         ),
                         FittedBox(
                           fit: BoxFit.cover,
-                          child: NotifBlock(
+                          child: notifBlock(
                               context,
                               notif[index].notifikasiHead,
                               notif[index].notifikasi),
@@ -71,8 +56,8 @@ class _NotificationPageState extends State<NotificationPage> {
                     ),
                     if (index == notif.length - 1)
                       Container(
-                          margin: EdgeInsets.only(top: 10, bottom: 10),
-                          child: Text('-- No more notifications --')),
+                          margin: const EdgeInsets.only(top: 10, bottom: 10),
+                          child: const Text('-- No more notifications --')),
                   ],
                 );
               },
@@ -83,7 +68,7 @@ class _NotificationPageState extends State<NotificationPage> {
     );
   }
 
-  Widget NotifBlock(BuildContext context, String notifHead, String notif) {
+  Widget notifBlock(BuildContext context, String notifHead, String notif) {
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
@@ -101,13 +86,13 @@ class _NotificationPageState extends State<NotificationPage> {
             Container(
                 width: 60,
                 height: 60,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     shape: BoxShape.rectangle,
-                    borderRadius: const BorderRadius.all(Radius.circular(99)),
+                    borderRadius: BorderRadius.all(Radius.circular(99)),
                     image: DecorationImage(
                         image: AssetImage('assets/images/zenst-logo.png'),
                         fit: BoxFit.cover))),
-            SizedBox(
+            const SizedBox(
               width: 10,
             ),
             Flexible(
@@ -117,14 +102,14 @@ class _NotificationPageState extends State<NotificationPage> {
                 children: [
                   Text(
                     notifHead,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
                         fontSize: 18),
                   ),
                   Text(
                     notif,
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w400),
                   ),
                 ],
@@ -134,5 +119,23 @@ class _NotificationPageState extends State<NotificationPage> {
         ),
       ),
     );
+  }
+
+  Widget noNotification() {
+    return Center(
+        child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          height: MediaQuery.of(context).size.width / 1.5,
+          width: MediaQuery.of(context).size.width / 1.5,
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/ilust-3.png'),
+                  fit: BoxFit.cover)),
+        ),
+        const Text('Belum ada Notifikasi !')
+      ],
+    ));
   }
 }
