@@ -34,13 +34,12 @@ class _LoginPageState extends State<LoginPage> {
     final dbHelper = DatabaseHelper();
     final user = await dbHelper.getUser(email!.text, password!.text);
 
-    print(user);
     bool isLoggedIn = user != null;
 
     if (isLoggedIn) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Sign In Successful'),
+          content: const Text('Sign In Successful'),
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.lightBlue[400],
           showCloseIcon: true,
@@ -49,10 +48,9 @@ class _LoginPageState extends State<LoginPage> {
       widget.setIsLogged(user['id']);
       Navigator.of(context).popUntil((route) => route.isFirst);
     } else {
-      // Show error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Invalid email or password'),
+          content: const Text('Invalid email or password'),
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.red[400],
           showCloseIcon: true,
@@ -67,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.fromLTRB(0, 30, 0, 0),
+        padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
         decoration: const BoxDecoration(
           color: Colors.white,
         ),
@@ -85,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text(
+                        const Text(
                           'Welcome to Zenst!',
                           textAlign: TextAlign.left,
                           style: TextStyle(
@@ -109,18 +107,18 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   'Email',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(fontWeight: FontWeight.w800),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 TextFormField(
@@ -149,18 +147,18 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   'Password',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(fontWeight: FontWeight.w800),
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 TextFormField(
@@ -200,7 +198,7 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ],
                             ),
-                            Container(
+                            SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -211,7 +209,7 @@ class _LoginPageState extends State<LoginPage> {
                                     child: Checkbox(
                                         value: keepSignedIn,
                                         activeColor: Colors.lightBlue[300],
-                                        side: BorderSide(color: Colors.black),
+                                        side: const BorderSide(color: Colors.black),
                                         onChanged: (bool? value) =>
                                             setState(() {
                                               keepSignedIn = value!;
@@ -220,7 +218,7 @@ class _LoginPageState extends State<LoginPage> {
                                   Expanded(
                                     child: RichText(
                                         softWrap: true,
-                                        text: TextSpan(
+                                        text: const TextSpan(
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 12.0),
@@ -251,13 +249,6 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ElevatedButton(
-                  child: const Text(
-                    'Sign In',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _login();
@@ -266,6 +257,13 @@ class _LoginPageState extends State<LoginPage> {
                   style: ElevatedButton.styleFrom(
                       fixedSize: Size(MediaQuery.of(context).size.width, 50),
                       backgroundColor: Colors.lightBlue[300]),
+                  child: const Text(
+                    'Sign In',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
                 Center(
                   child: Row(
@@ -291,13 +289,6 @@ class _LoginPageState extends State<LoginPage> {
                                         setIsLogged: widget.setIsLogged,
                                       )));
                         },
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            color: Colors.lightBlue[300],
-                            fontFamily: 'Poppins',
-                          ),
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.transparent,
                           shadowColor: Colors.transparent,
@@ -305,6 +296,13 @@ class _LoginPageState extends State<LoginPage> {
                           padding: const EdgeInsets.all(0),
                           visualDensity: VisualDensity.compact,
                           elevation: 0,
+                        ),
+                        child: Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            color: Colors.lightBlue[300],
+                            fontFamily: 'Poppins',
+                          ),
                         ),
                       )
                     ],
