@@ -48,6 +48,7 @@ class DatabaseHelper {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         userId INTEGER,
         notifikasi TEXT,
+        notifikasiHead TEXT,
         FOREIGN KEY(userId) REFERENCES users(id)
       )
     ''');
@@ -72,11 +73,24 @@ class DatabaseHelper {
       )
     ''');
   }
+
 // CRUD operations for users
   Future<void> insertUser(User user) async {
     final db = await database;
-    await db.insert('users', user.toMap(),
+    int newUser = await db.insert('users', user.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
+    NotificationDB notifikasi = NotificationDB(
+        userId: newUser,
+        notifikasiHead: "Selamat Datang di Zenst!",
+        notifikasi:
+            "Selamat datang ${user.name} di Zenst! platform mencari inspirasi setup workspace mu 😊");
+    NotificationDB notifikasi2 = NotificationDB(
+        userId: newUser,
+        notifikasiHead: "Ada yang baru nih!",
+        notifikasi:
+            "Ada yang baru nih! kamu bisa bertanya ke Gemini AI untuk membantu menemukan inspirasi setup mu 😀");
+    await insertNotification(notifikasi);
+    await insertNotification(notifikasi2);
   }
 
   Future<List<User>> getAllUsers() async {
@@ -116,21 +130,25 @@ class DatabaseHelper {
   }
 
   // CRUD operations for notifications
-  Future<void> insertNotification(Notification notification) async {
+  Future<void> insertNotification(NotificationDB notification) async {
     final db = await database;
     await db.insert('notification', notification.toMap(),
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  Future<List<Notification>> getAllNotifications() async {
+  Future<List<NotificationDB>> getAllNotificationsUserId(int id) async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('notification');
+    final List<Map<String, dynamic>> maps = await db.query(
+      'notification',
+      where: 'userId = ?',
+      whereArgs: [id],
+    );
     return List.generate(maps.length, (i) {
-      return Notification.fromMap(maps[i]);
+      return NotificationDB.fromMap(maps[i]);
     });
   }
 
-  Future<Notification?> getNotificationById(int id) async {
+  Future<NotificationDB?> getNotificationBy(int id) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
       'notification',
@@ -138,7 +156,7 @@ class DatabaseHelper {
       whereArgs: [id],
     );
     if (maps.isNotEmpty) {
-      return Notification.fromMap(maps.first);
+      return NotificationDB.fromMap(maps.first);
     }
     return null;
   }
@@ -166,6 +184,7 @@ class DatabaseHelper {
       return Bookmark.fromMap(maps[i]);
     });
   }
+
   Future<List<String>> getAllBookmarksString() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('bookmark');

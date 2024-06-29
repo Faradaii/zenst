@@ -1,9 +1,10 @@
-class Notification {
+class NotificationDB {
   int? id;
   late int userId;
+  late String notifikasiHead;
   late String notifikasi;
 
-  Notification({this.id, required this.userId, required this.notifikasi});
+  NotificationDB({this.id, required this.userId, required this.notifikasi, required this.notifikasiHead});
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{};
@@ -13,12 +14,14 @@ class Notification {
     }
     map['userId'] = userId;
     map['notifikasi'] = notifikasi;
+    map['notifikasiHead'] = notifikasiHead;
     return map;
   }
 
-  Notification.fromMap(Map<String, dynamic> map) {
+  NotificationDB.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     userId = map['userId'];
     notifikasi = map['notifikasi'];
+    notifikasiHead = map['notifikasiHead'];
   }
 }
