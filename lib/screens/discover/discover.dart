@@ -7,15 +7,15 @@ import 'package:zenst/models/apis/videos.dart';
 import 'package:zenst/screens/discover/components/videopost.dart';
 import 'package:zenst/services/api_service.dart';
 
-class Discover extends StatefulWidget {
+class DiscoverPage extends StatefulWidget {
   final int userIdLogged;
-  const Discover({super.key, required this.userIdLogged});
+  const DiscoverPage({super.key, required this.userIdLogged});
 
   @override
-  State<Discover> createState() => _DiscoverState();
+  State<DiscoverPage> createState() => _DiscoverPageState();
 }
 
-class _DiscoverState extends State<Discover>
+class _DiscoverPageState extends State<DiscoverPage>
     with AutomaticKeepAliveClientMixin {
   final PageController _pageController = PageController();
   int _currentPageIndex = 0;

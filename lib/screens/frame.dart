@@ -22,7 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
     DiscoverPage(userIdLogged: widget.userIdLogged),
     PicksPage(),
     AssistPage(),
-    NotificationPage(userIdLogged: widget.userIdLogge),
+    NotificationPage(userIdLogged: widget.userIdLogged),
     ProfilePage(
       userIdLogged: widget.userIdLogged,
       setLoggedOut: widget.setLoggedOut,

@@ -3,11 +3,11 @@ import 'package:jumping_dot/jumping_dot.dart';
 import 'package:zenst/services/api_service.dart';
 import 'package:typewritertext/typewritertext.dart';
 
-class Assist extends StatefulWidget {
-  const Assist({super.key});
+class AssistPage extends StatefulWidget {
+  const AssistPage({super.key});
 
   @override
-  State<Assist> createState() => _AssistState();
+  State<AssistPage> createState() => _AssistPageState();
 }
 
 class ChatMessage {
@@ -17,7 +17,7 @@ class ChatMessage {
   ChatMessage({required this.text, required this.isSentByMe});
 }
 
-class _AssistState extends State<Assist> {
+class _AssistPageState extends State<AssistPage> {
   List<ChatMessage> messages = [];
   bool isFetching = false;
   bool isFinishedAnimation = true;
