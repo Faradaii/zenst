@@ -20,8 +20,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   late final List<Widget> _widgetOptions = <Widget>[
     DiscoverPage(userIdLogged: widget.userIdLogged),
-    PicksPage(),
-    AssistPage(),
+    const PicksPage(),
+    const AssistPage(),
     NotificationPage(userIdLogged: widget.userIdLogged),
     ProfilePage(
       userIdLogged: widget.userIdLogged,
@@ -57,12 +57,12 @@ class _MyHomePageState extends State<MyHomePage> {
               BoxShadow(
                 color: _selectedNavbar == 0
                     ? Colors.black
-                    : Colors.white, // Warna shadow dan opacity
+                    : Colors.white,
                 spreadRadius: _selectedNavbar == 0 ? 0 : 10,
-                blurRadius: _selectedNavbar == 0 ? 0 : 20,
+                blurRadius: _selectedNavbar == 0 ? 0 : 10,
                 offset: _selectedNavbar == 0
-                    ? Offset(0, 0)
-                    : Offset(0, -3), // Offset shadow
+                    ? const Offset(0, 0)
+                    : const Offset(0, -3),
               ),
             ],
           ),
@@ -76,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     color: _selectedNavbar == 0 ? Colors.white : Colors.black,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 5,
               ),
               Container(
@@ -132,8 +132,6 @@ class _MyHomePageState extends State<MyHomePage> {
       currentIndex: _selectedNavbar,
       selectedItemColor: Colors.lightBlue[300],
       unselectedItemColor: Colors.grey,
-      // showUnselectedLabels: false,
-      // showSelectedLabels: false,
       onTap: _changeSelectedNavbar,
     );
   }
