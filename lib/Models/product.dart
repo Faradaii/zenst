@@ -1,40 +1,34 @@
 class Product {
-  int? id;
-  late String name;
-  late String description;
-  late double price;
-  late String imagePath;
-  late int totalSold;
+  final int id;
+  final String name;
+  final String description;
+  final double price;
+  final String imagePath;
+  final int totalSold;
 
   Product({
-    this.id,
+    required this.id,
     required this.name,
     required this.description,
     required this.price,
     required this.imagePath,
     required this.totalSold,
   });
+}
 
-  Map<String, dynamic> toMap() {
-    var map = <String, dynamic>{};
 
-    if (id != null) {
-      map['id'] = id;
-    }
-    map['name'] = name;
-    map['description'] = description;
-    map['price'] = price;
-    map['imagePath'] = imagePath;
-    map['totalSold'] = totalSold;
-    return map;
-  }
+List<Product> staticProducts = [
+  Product(
+    id: 1,
+    name: 'Rexus Bluetooth Gamepad Gladius GX300',
+    description: 'Gamepad Wired',
+    price: 599.000,
+    imagePath:
+        'https://rexus.id/cdn/shop/files/GX300_2_59fcf15d-4843-4136-b52f-cbe75f79d9e4.png',
+    totalSold: 100,
+  ),
+];
 
-  Product.fromMap(Map<String, dynamic> map) {
-    id = map['id'];
-    name = map['name'];
-    description = map['description'];
-    price = map['price'];
-    imagePath = map['imagePath'];
-    totalSold = map['totalSold'];
-  }
+List<Product> getProducts() {
+  return staticProducts;
 }
