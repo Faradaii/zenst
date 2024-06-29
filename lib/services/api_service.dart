@@ -1,11 +1,14 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:http/http.dart' as http;
 import 'package:zenst/models/apis/videos.dart';
 
 class ApiService {
-  static const _keywordVideo = 'ai%disturbing%20time%20traveler';
-  static const String apiUrlTiktok =
-      "https://tiktok-video-feature-summary.p.rapidapi.com/feed/search?keywords=$_keywordVideo&count=10";
+  final List keywordList = [
+    'monitor%20mouse%20keyboard%20setup%20gaming',
+    'setup%20workspace%20techtok',
+    'techtok%20inspiration'
+  ];
 
   final apiKeyGemini = "AIzaSyC3zlaQHxHOb5xEwK0XCSz3InTOaKH7wcQ";
   final apiUrlGemini = Uri.https('generativelanguage.googleapis.com',
@@ -17,9 +20,10 @@ class ApiService {
 
   Future<List<Video>> fetchVideos() async {
     final response = await http.get(
-      Uri.parse(apiUrlTiktok),
+      Uri.parse(
+          'https://tiktok-video-feature-summary.p.rapidapi.com/feed/search?keywords=${keywordList[Random().nextInt(keywordList.length)]}&count=10'),
       headers: {
-        'x-rapidapi-key': '558053a9e4msh0eebb74f46c3e4ap123125jsn753cacd6dd51',
+        'x-rapidapi-key': '7eda1fb120msh29f95f6425bb565p134d94jsn173ac2222664',
         'x-rapidapi-host': 'tiktok-video-feature-summary.p.rapidapi.com',
       },
     );
@@ -29,7 +33,7 @@ class ApiService {
       final List videosJson = json['data']['videos'];
       return videosJson.map((json) => Video.fromJson(json)).toList();
     } else {
-      throw Exception(response.body);
+      throw Exception(response);
     }
   }
 
