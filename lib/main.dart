@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zenst/screens/authentication/login_screen.dart';
 import 'package:zenst/screens/authentication/register_screen.dart';
-import 'package:zenst/screens/discover.dart';
 import 'package:zenst/screens/frame.dart';
 
 void main() {
@@ -22,13 +20,11 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     void setIsLogged(int userId) {
-      print(userIdLogged);
       setState(() {
         isLogged = true;
         userIdLogged = userId;
       });
 
-      print(this.userIdLogged);
     }
 
     void setLoggedOut() {
