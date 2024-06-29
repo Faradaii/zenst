@@ -8,8 +8,7 @@ import 'package:zenst/models/apis/videos.dart';
 class VideoPost extends StatefulWidget {
   final Video video;
   final bool isVisible;
-  const VideoPost({required this.video, required this.isVisible, Key? key})
-      : super(key: key);
+  const VideoPost({required this.video, required this.isVisible, super.key});
 
   @override
   State<VideoPost> createState() => _VideoPostState();
@@ -26,15 +25,15 @@ class _VideoPostState extends State<VideoPost>
   @override
   void initState() {
     super.initState();
-    Wakelock.enable(); // Enable wakelock
+    Wakelock.enable();
     _controller =
         VideoPlayerController.networkUrl((Uri.parse(widget.video.videoUrl)));
     _initializeVideoPlayerFuture = _controller.initialize().then((_) {
-      _controller.play(); // Start playing the video when initialized
-      setState(() {}); // Trigger rebuild when video is ready
-      Wakelock.enable(); // Ensure wakelock is enabled when video is playing
+      _controller.play();
+      setState(() {}); 
+      Wakelock.enable();
     });
-    _controller.setLooping(true); // Set video to loop
+    _controller.setLooping(true);
   }
 
   @override
@@ -52,7 +51,7 @@ class _VideoPostState extends State<VideoPost>
     if (widget.isVisible) {
       _controller.play();
     } else {
-      _controller.seekTo(Duration(milliseconds: 0));
+      _controller.seekTo(const Duration(milliseconds: 0));
       _controller.pause();
     }
   }
@@ -89,7 +88,7 @@ class _VideoPostState extends State<VideoPost>
                 ),
                 AnimatedOpacity(
                   opacity: _controller.value.isPlaying ? 0.0 : 1.0,
-                  duration: Duration(milliseconds: 500),
+                  duration: const Duration(milliseconds: 500),
                   child: Icon(
                     _controller.value.isPlaying
                         ? Icons.pause
