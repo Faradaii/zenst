@@ -74,7 +74,6 @@ class DatabaseHelper {
     ''');
   }
 
-// CRUD operations for users
   Future<void> insertUser(User user) async {
     final db = await database;
     int newUser = await db.insert('users', user.toMap(),
@@ -83,7 +82,7 @@ class DatabaseHelper {
         userId: newUser,
         notifikasiHead: "Selamat Datang di Zenst!",
         notifikasi:
-            "Selamat datang ${user.name} di Zenst! platform mencari inspirasi setup workspace mu 😊");
+            "Selamat datang di Zenst! platform mencari inspirasi setup workspace mu 😊");
     NotificationDB notifikasi2 = NotificationDB(
         userId: newUser,
         notifikasiHead: "Ada yang baru nih!",
@@ -93,13 +92,6 @@ class DatabaseHelper {
     await insertNotification(notifikasi2);
   }
 
-  Future<List<User>> getAllUsers() async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('users');
-    return List.generate(maps.length, (i) {
-      return User.fromMap(maps[i]);
-    });
-  }
 
   Future<Map<String, dynamic>?> getUser(String email, String password) async {
     final db = await database;
@@ -129,7 +121,17 @@ class DatabaseHelper {
     return null;
   }
 
-  // CRUD operations for notifications
+  Future<int?> updateUser(User user) async {
+    try {
+      final db = await database;
+      int res = await db
+          .update('users', user.toMap(), where: 'id = ?', whereArgs: [user.id]);
+      return res;
+    } catch (e) {
+      return 0; 
+    }
+  }
+
   Future<void> insertNotification(NotificationDB notification) async {
     final db = await database;
     await db.insert('notification', notification.toMap(),
@@ -148,20 +150,7 @@ class DatabaseHelper {
     });
   }
 
-  Future<NotificationDB?> getNotificationBy(int id) async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query(
-      'notification',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-    if (maps.isNotEmpty) {
-      return NotificationDB.fromMap(maps.first);
-    }
-    return null;
-  }
 
-  // CRUD operations for bookmarks
   Future<void> insertBookmark(Bookmark bookmark) async {
     final db = await database;
     await db.insert('bookmark', bookmark.toMap(),
@@ -177,9 +166,13 @@ class DatabaseHelper {
     );
   }
 
-  Future<List<Bookmark>> getAllBookmarks() async {
+  Future<List<Bookmark>> getAllBookmarksUserId(int id) async {
     final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query('bookmark');
+    final List<Map<String, dynamic>> maps = await db.query(
+      'bookmark',
+      where: 'userId = ?',
+      whereArgs: [id],
+    );
     return List.generate(maps.length, (i) {
       return Bookmark.fromMap(maps[i]);
     });
@@ -193,16 +186,5 @@ class DatabaseHelper {
     });
   }
 
-  Future<bool> getBookmarkById(String id) async {
-    final db = await database;
-    final List<Map<String, dynamic>> maps = await db.query(
-      'bookmark',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
-    if (maps.isNotEmpty) {
-      return true;
-    }
-    return false;
-  }
+ 
 }
