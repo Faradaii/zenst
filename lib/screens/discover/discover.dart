@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:jumping_dot/jumping_dot.dart';
-import 'package:wakelock/wakelock.dart';
 import 'package:zenst/models/bookmark.dart';
 import 'package:zenst/databases/db_helper.dart';
 import 'package:zenst/models/apis/videos.dart';
@@ -16,17 +15,65 @@ class Discover extends StatefulWidget {
   State<Discover> createState() => _DiscoverState();
 }
 
-class _DiscoverState extends State<Discover> {
+class _DiscoverState extends State<Discover>
+    with AutomaticKeepAliveClientMixin {
   final PageController _pageController = PageController();
   int _currentPageIndex = 0;
   bool isExpandText = false;
+  List<String> bookmarkedVideos = [];
+  List<String> likedVideos = [];
   late Future<List<Video>> _videosFuture;
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
     super.initState();
     _videosFuture = ApiService().fetchVideos();
-    Wakelock.enable();
+  }
+
+  void changebookmarkedVideos(String id, String cover) async {
+    if (!bookmarkedVideos.contains(id)) {
+      DatabaseHelper().insertBookmark(
+          Bookmark(id: id, userId: widget.userIdLogged, imagePath: cover));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Video Bookmarked!'),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.lightBlue[400],
+          duration: Duration(milliseconds: 500),
+        ),
+      );
+      setState(() {
+        bookmarkedVideos.add(id);
+      });
+    } else {
+      DatabaseHelper().deleteBookmark(id);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Video Unbookmarked!'),
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.red[400],
+          duration: Duration(milliseconds: 500),
+        ),
+      );
+      setState(() {
+        bookmarkedVideos.remove(id);
+      });
+    }
+  }
+
+  void changeLikedVideos(String id) async {
+    if (!likedVideos.contains(id)) {
+      setState(() {
+        likedVideos.add(id);
+      });
+    } else {
+      setState(() {
+        likedVideos.remove(id);
+      });
+    }
   }
 
   void _onPageChanged(int index) {
@@ -78,6 +125,12 @@ class _DiscoverState extends State<Discover> {
   }
 
   Widget FrameVideoPost(BuildContext context, videos, index) {
+    String cvtInt(int i) {
+      return i > 999
+          ? '${i.toString().substring(0, i.toString().length - 3)}.${i.toString().substring(i.toString().length - 3, i.toString().length - 2)} K'
+          : i.toString();
+    }
+
     return Stack(alignment: Alignment.bottomCenter, children: [
       Container(
         height: MediaQuery.of(context).size.height / 5,
@@ -97,6 +150,7 @@ class _DiscoverState extends State<Discover> {
             Flexible(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
@@ -137,7 +191,7 @@ class _DiscoverState extends State<Discover> {
                     ],
                   ),
                   SizedBox(
-                    height: 15,
+                    height: videos[index].title.toString().isEmpty ? 0 : 15,
                   ),
                   RichText(
                       text: TextSpan(children: [
@@ -180,13 +234,20 @@ class _DiscoverState extends State<Discover> {
                 Column(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        changeLikedVideos(videos[index].id.toString());
+                      },
                       icon: Icon(Icons.favorite,
-                          color: const Color.fromRGBO(255, 255, 255, 0.85)),
+                          color:
+                              likedVideos.contains(videos[index].id.toString())
+                                  ? Colors.red[400]
+                                  : const Color.fromRGBO(255, 255, 255, 0.85)),
                       iconSize: 40,
                     ),
                     Text(
-                      videos[index].diggCount.toString(),
+                      likedVideos.contains(videos[index].id.toString())
+                          ? cvtInt(videos[index].diggCount + 1)
+                          : cvtInt(videos[index].diggCount),
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
@@ -215,25 +276,20 @@ class _DiscoverState extends State<Discover> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        DatabaseHelper().insertBookmark(Bookmark(
-                            id: videos[index].id,
-                            userId: widget.userIdLogged,
-                            imagePath: videos[index].cover));
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text('Video Bookmarked!'),
-                            behavior: SnackBarBehavior.floating,
-                            backgroundColor: Colors.lightBlue[400],
-                            showCloseIcon: true,
-                          ),
-                        );
+                        changebookmarkedVideos(videos[index].id.toString(),
+                            videos[index].cover.toString());
                       },
                       icon: Icon(Icons.bookmark_outlined,
-                          color: const Color.fromRGBO(255, 255, 255, 0.85)),
+                          color: bookmarkedVideos
+                                  .contains(videos[index].id.toString())
+                              ? Colors.lightBlue[400]
+                              : const Color.fromRGBO(255, 255, 255, 0.85)),
                       iconSize: 40,
                     ),
                     Text(
-                      'Save',
+                      bookmarkedVideos.contains(videos[index].id.toString())
+                          ? 'Saved'
+                          : 'Save',
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
