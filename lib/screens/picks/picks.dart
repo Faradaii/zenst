@@ -59,49 +59,57 @@ class _PicksPageState extends State<PicksPage> {
                                   image: NetworkImage(imagePath),
                                   fit: BoxFit.cover)),
                         ),
-                        Text(
-                          '${picksList[index].totalSold} Sold',
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(5, 2, 5, 2),
+                          decoration: BoxDecoration(
+                            color: Colors.lightBlue,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Text(
+                            '${picksList[index].totalSold} Sold',
+                            style: const TextStyle(color: Colors.white),
+                          ),
                         ),
                       ],
                     ),
-                    Container(
-                        child: Text(picksList[index].name,
-                            maxLines: 2,
-                            style: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w700))),
-                    Container(
-                      child: Text(
-                        picksList[index].description,
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.justify,
+                    Text(picksList[index].name,
+                        maxLines: 2,
                         style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.black87),
-                      ),
+                            fontSize: 16, fontWeight: FontWeight.w700)),
+                    Text(
+                      picksList[index].description,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black87),
                     ),
-                    Container(
-                      child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'IDR ${picksList[index].price}',
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w700),
+                    Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'IDR ${picksList[index].price}',
+                            style: const TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w700),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              picksIt(index);
+                            },
+                            icon: Icon(
+                                (likedPicks.contains(picksList[index].id))
+                                    ? Icons.favorite
+                                    : Icons.favorite_outline),
+                            color: likedPicks.contains(picksList[index].id)
+                                ? Colors.red[300]
+                                : Colors.black,
+                            style: const ButtonStyle(
+                              visualDensity: VisualDensity.standard,
                             ),
-                            IconButton(
-                              onPressed: () {
-                                picksIt(index);
-                              },
-                              icon: Icon(
-                                  (likedPicks.contains(picksList[index].id))
-                                      ? Icons.favorite
-                                      : Icons.favorite_outline),
-                              color: Colors.red[300],
-                            )
-                          ]),
-                    )
+                          )
+                        ])
                   ]));
         },
       ),

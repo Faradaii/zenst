@@ -25,7 +25,9 @@ class _ItemSavedPageState extends State<ItemSavedPage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Bookmarked"),
+          backgroundColor: Colors.white,
         ),
+        backgroundColor: Colors.white,
         body: SafeArea(
             child: FutureBuilder<List<Bookmark>>(
                 future: _bookmarked,

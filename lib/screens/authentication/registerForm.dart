@@ -1,62 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:zenst/Models/user.dart';
 import 'package:zenst/databases/db_helper.dart';
-import 'package:zenst/screens/authentication/register_screen.dart';
+import 'package:zenst/models/user.dart';
+import 'package:zenst/screens/authentication/login_screen.dart';
+import 'package:zenst/screens/authentication/registerSuccess.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterForm extends StatefulWidget {
   final Function(int) setIsLogged;
   final User? user;
-  const LoginPage({super.key, this.user, required this.setIsLogged});
+  const RegisterForm({super.key, this.user, required this.setIsLogged});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  bool keepSignedIn = false;
+class _RegisterFormState extends State<RegisterForm> {
+  bool isAgreeTC = false;
   bool hidePassword = true;
   DatabaseHelper db = DatabaseHelper();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
+
   TextEditingController? name;
   TextEditingController? email;
   TextEditingController? password;
 
+  Future<void> upsertUser() async {
+    if ((name!.text != '') &&
+        (email!.text != '') &&
+        (password!.text != '') &&
+        isAgreeTC) {
+      await db.insertUser(User(
+        name: name!.text,
+        email: email!.text,
+        password: password!.text,
+      ));
+      await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => RegisterSuccess(
+              setIsLogged: widget.setIsLogged,
+            ),
+          ));
+    }
+  }
+
   @override
   void initState() {
     final user = widget.user;
+    name = TextEditingController(text: user?.name ?? '');
     email = TextEditingController(text: user?.email ?? '');
     password = TextEditingController(text: user?.password ?? '');
     super.initState();
-  }
-
-  Future<void> _login() async {
-    final dbHelper = DatabaseHelper();
-    final user = await dbHelper.getUser(email!.text, password!.text);
-
-    bool isLoggedIn = user != null;
-
-    if (isLoggedIn) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Sign In Successful'),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.lightBlue[400],
-          showCloseIcon: true,
-        ),
-      );
-      widget.setIsLogged(user['id']);
-      Navigator.of(context).popUntil((route) => route.isFirst);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Invalid email or password'),
-          behavior: SnackBarBehavior.floating,
-          backgroundColor: Colors.red[400],
-          showCloseIcon: true,
-        ),
-      );
-    }
   }
 
   @override
@@ -78,13 +71,13 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 5, 30, 0),
+                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         const Text(
-                          'Welcome to Zenst!',
+                          'Create an Account',
                           textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Colors.black,
@@ -97,7 +90,8 @@ class _LoginPageState extends State<LoginPage> {
                         Column(
                           children: [
                             Container(
-                              height: MediaQuery.of(context).size.height / 2.5,
+                              height: MediaQuery.of(context).size.height / 3,
+                              width: MediaQuery.of(context).size.height / 3,
                               decoration: const BoxDecoration(
                                 color: Colors.white,
                                 image: DecorationImage(
@@ -106,6 +100,43 @@ class _LoginPageState extends State<LoginPage> {
                                   fit: BoxFit.fill,
                                 ),
                               ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  'Name',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(fontWeight: FontWeight.w800),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                TextFormField(
+                                  controller: name,
+                                  validator: (String? value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please fill with your name.';
+                                    }
+                                    return null;
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: 'John Doe',
+                                    enabledBorder: const OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.grey, width: 0.0),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(
+                                          color: Colors.lightBlue[500]!,
+                                          width: 2),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                             const SizedBox(
                               height: 10,
@@ -122,13 +153,13 @@ class _LoginPageState extends State<LoginPage> {
                                   height: 5,
                                 ),
                                 TextFormField(
-                                  controller: email,
                                   validator: (String? value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please fill with your email.';
                                     }
                                     return null;
                                   },
+                                  controller: email,
                                   decoration: InputDecoration(
                                     hintText: 'myemail@example.com',
                                     enabledBorder: const OutlineInputBorder(
@@ -162,13 +193,16 @@ class _LoginPageState extends State<LoginPage> {
                                   height: 5,
                                 ),
                                 TextFormField(
-                                  controller: password,
                                   validator: (String? value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please fill with your password.';
                                     }
+                                    if (value.length < 8) {
+                                      return 'Minimum 8 characters.';
+                                    }
                                     return null;
                                   },
+                                  controller: password,
                                   obscureText: hidePassword ? true : false,
                                   decoration: InputDecoration(
                                     suffixIcon: IconButton(
@@ -198,36 +232,87 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                               ],
                             ),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  SizedBox(
-                                    width: 30,
-                                    height: 50,
-                                    child: Checkbox(
-                                        value: keepSignedIn,
-                                        activeColor: Colors.lightBlue[300],
-                                        side: const BorderSide(color: Colors.black),
-                                        onChanged: (bool? value) =>
-                                            setState(() {
-                                              keepSignedIn = value!;
-                                            })),
-                                  ),
-                                  Expanded(
-                                    child: RichText(
-                                        softWrap: true,
-                                        text: const TextSpan(
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 12.0),
-                                            children: <TextSpan>[
-                                              TextSpan(
-                                                  text: 'Keep me signed in '),
-                                            ])),
-                                  ),
-                                ],
+                              child: FormField<bool>(
+                                initialValue: isAgreeTC,
+                                validator: (value) {
+                                  if (value == null || !value) {
+                                    return 'You must agree to the terms and conditions.';
+                                  }
+                                  return null;
+                                },
+                                builder: (FormFieldState<bool> state) {
+                                  return Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 20,
+                                            height: 50,
+                                            child: Checkbox(
+                                              value: state.value,
+                                              onChanged: (value) {
+                                                state.didChange(value);
+                                                setState(() {
+                                                  isAgreeTC = value!;
+                                                });
+                                              },
+                                              activeColor:
+                                                  Colors.lightBlue[300],
+                                              side: const BorderSide(
+                                                  color: Colors.black,
+                                                  width: 1),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: RichText(
+                                              softWrap: true,
+                                              text: TextSpan(
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 12.0),
+                                                children: <TextSpan>[
+                                                  const TextSpan(
+                                                      text:
+                                                          'By signing up, you agree to our '),
+                                                  TextSpan(
+                                                      text:
+                                                          'Terms & Conditions ',
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .lightBlue[300])),
+                                                  const TextSpan(text: 'and '),
+                                                  TextSpan(
+                                                      text: 'Privacy Policy',
+                                                      style: TextStyle(
+                                                          color: Colors
+                                                              .lightBlue[300])),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      if (state.hasError)
+                                        Text(
+                                          state.errorText!,
+                                          style: TextStyle(
+                                            color: Colors.red[300],
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                    ],
+                                  );
+                                },
                               ),
                             )
                           ],
@@ -251,14 +336,14 @@ class _LoginPageState extends State<LoginPage> {
                 ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      _login();
+                      upsertUser();
                     }
                   },
                   style: ElevatedButton.styleFrom(
                       fixedSize: Size(MediaQuery.of(context).size.width, 50),
                       backgroundColor: Colors.lightBlue[300]),
                   child: const Text(
-                    'Sign In',
+                    'Sign Up',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -285,7 +370,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => RegisterPage(
+                                  builder: (context) => LoginPage(
                                         setIsLogged: widget.setIsLogged,
                                       )));
                         },
@@ -298,7 +383,7 @@ class _LoginPageState extends State<LoginPage> {
                           elevation: 0,
                         ),
                         child: Text(
-                          'Sign Up',
+                          'Sign In',
                           style: TextStyle(
                             color: Colors.lightBlue[300],
                             fontFamily: 'Poppins',

@@ -77,7 +77,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                         enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           borderSide:
-                              const BorderSide(color: Colors.grey, width: 0.0),
+                              BorderSide(color: Colors.grey, width: 0.0),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -115,7 +115,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                         enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           borderSide:
-                              const BorderSide(color: Colors.grey, width: 0.0),
+                              BorderSide(color: Colors.grey, width: 0.0),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -166,7 +166,7 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
                         enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           borderSide:
-                              const BorderSide(color: Colors.grey, width: 0.0),
+                              BorderSide(color: Colors.grey, width: 0.0),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),

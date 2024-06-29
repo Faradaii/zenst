@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
       ),
       home: isLogged
           ? MyHomePage(userIdLogged: userIdLogged, setLoggedOut: setLoggedOut)
-          : RegisterPage(setIsLogged: setIsLogged),
+          : RegisterPage(setIsLogged: setIsLogged, isGetStarted: false),
       debugShowCheckedModeBanner: false,
     );
   }

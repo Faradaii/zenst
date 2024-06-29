@@ -21,13 +21,13 @@ class _AssistPageState extends State<AssistPage> {
   List<ChatMessage> messages = [];
   bool isFetching = false;
   bool isFinishedAnimation = true;
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   List<String> askIdeas = [
     "Tips membuat setup workspace",
     "Monitor atau Keyboard dahulu?",
     "Berikan saran tone estetik untuk workspace"
   ];
-  TextEditingController _controller = TextEditingController();
+  final TextEditingController _controller = TextEditingController();
 
   void changeIsFetching() {
     setState(() {
@@ -167,7 +167,7 @@ class _AssistPageState extends State<AssistPage> {
             padding: const EdgeInsets.all(5.0),
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height / 30,
                   child: ListView.separated(

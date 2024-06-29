@@ -92,7 +92,6 @@ class DatabaseHelper {
     await insertNotification(notifikasi2);
   }
 
-
   Future<Map<String, dynamic>?> getUser(String email, String password) async {
     final db = await database;
     List<Map<String, dynamic>> results = await db.query(
@@ -128,7 +127,7 @@ class DatabaseHelper {
           .update('users', user.toMap(), where: 'id = ?', whereArgs: [user.id]);
       return res;
     } catch (e) {
-      return 0; 
+      return 0;
     }
   }
 
@@ -138,18 +137,27 @@ class DatabaseHelper {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
+  Future<void> deleteNotification(String id) async {
+    final db = await database;
+    await db.delete(
+      'notification',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
   Future<List<NotificationDB>> getAllNotificationsUserId(int id) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
       'notification',
       where: 'userId = ?',
       whereArgs: [id],
+      orderBy: 'id DESC',
     );
     return List.generate(maps.length, (i) {
       return NotificationDB.fromMap(maps[i]);
     });
   }
-
 
   Future<void> insertBookmark(Bookmark bookmark) async {
     final db = await database;
@@ -185,6 +193,4 @@ class DatabaseHelper {
       return maps[i]['id'].toString();
     });
   }
-
- 
 }

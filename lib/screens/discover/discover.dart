@@ -112,7 +112,7 @@ class _DiscoverPageState extends State<DiscoverPage>
                       child:
                           VideoPost(video: videos[index], isVisible: isVisible),
                     ),
-                    Container(
+                    SizedBox(
                         height: MediaQuery.of(context).size.height,
                         child: FrameVideoPost(context, videos, index))
                   ],
