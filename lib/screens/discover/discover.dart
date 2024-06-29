@@ -39,10 +39,10 @@ class _DiscoverState extends State<Discover>
           Bookmark(id: id, userId: widget.userIdLogged, imagePath: cover));
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Video Bookmarked!'),
+          content: const Text('Video Bookmarked!'),
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.lightBlue[400],
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
         ),
       );
       setState(() {
@@ -52,10 +52,10 @@ class _DiscoverState extends State<Discover>
       DatabaseHelper().deleteBookmark(id);
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Video Unbookmarked!'),
+          content: const Text('Video Unbookmarked!'),
           behavior: SnackBarBehavior.floating,
           backgroundColor: Colors.red[400],
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
         ),
       );
       setState(() {
@@ -85,6 +85,7 @@ class _DiscoverState extends State<Discover>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return SafeArea(
       child: FutureBuilder<List<Video>>(
         future: _videosFuture,
@@ -160,12 +161,12 @@ class _DiscoverState extends State<Discover>
                           decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(99)),
+                                  const BorderRadius.all(Radius.circular(99)),
                               image: DecorationImage(
                                   image:
                                       NetworkImage(videos[index].author.avatar),
                                   fit: BoxFit.cover))),
-                      SizedBox(
+                      const SizedBox(
                         width: 8,
                       ),
                       Column(
@@ -174,14 +175,14 @@ class _DiscoverState extends State<Discover>
                         children: [
                           Text(
                             videos[index].author.nickname.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700),
                           ),
                           Text(
                             '@${videos[index].author.uniqueId}',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
                                 fontWeight: FontWeight.w500),
@@ -203,7 +204,7 @@ class _DiscoverState extends State<Discover>
                                   ? videos[index].title.toString().length
                                   : 100)
                               : videos[index].title.toString().length),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                       ),
                     ),
@@ -217,7 +218,7 @@ class _DiscoverState extends State<Discover>
                           },
                           child: Text(
                             isExpandText ? '\t\tSee less' : '\t\tSee more',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.blue,
                               decoration: TextDecoration.underline,
                             ),
@@ -248,28 +249,28 @@ class _DiscoverState extends State<Discover>
                       likedVideos.contains(videos[index].id.toString())
                           ? cvtInt(videos[index].diggCount + 1)
                           : cvtInt(videos[index].diggCount),
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Column(
                   children: [
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.chat_rounded,
-                          color: const Color.fromRGBO(255, 255, 255, 0.85)),
+                      icon: const Icon(Icons.chat_rounded,
+                          color: Color.fromRGBO(255, 255, 255, 0.85)),
                       iconSize: 40,
                     ),
                     Text(
                       videos[index].commentCount.toString(),
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Column(
@@ -290,11 +291,11 @@ class _DiscoverState extends State<Discover>
                       bookmarkedVideos.contains(videos[index].id.toString())
                           ? 'Saved'
                           : 'Save',
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 Container(
@@ -303,7 +304,7 @@ class _DiscoverState extends State<Discover>
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         border: Border.all(color: Colors.white),
-                        borderRadius: BorderRadius.all(Radius.circular(99)),
+                        borderRadius: const BorderRadius.all(Radius.circular(99)),
                         image: DecorationImage(
                             image: NetworkImage(videos[index].musicCover),
                             fit: BoxFit.cover))),
