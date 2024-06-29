@@ -150,6 +150,15 @@ class DatabaseHelper {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
+  Future<void> deleteBookmark(String id) async {
+    final db = await database;
+    await db.delete(
+      'bookmark',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+  }
+
   Future<List<Bookmark>> getAllBookmarks() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('bookmark');
