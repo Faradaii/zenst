@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zenst/screens/assist/assist.dart';
 import 'package:zenst/screens/discover/discover.dart';
+import 'package:zenst/screens/notification/notification.dart';
+import 'package:zenst/screens/picks/picks.dart';
 import 'package:zenst/screens/profile/profile.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -16,16 +18,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedNavbar = 0;
 
-  late List<Widget> _widgetOptions = <Widget>[
-    Discover(userIdLogged: widget.userIdLogged),
-    Text(
-      'Index 1: Business',
-    ),
-    Assist(),
-    Text(
-      'Index 2: School',
-    ),
-    Profile(
+  late final List<Widget> _widgetOptions = <Widget>[
+    DiscoverPage(userIdLogged: widget.userIdLogged),
+    PicksPage(),
+    AssistPage(),
+    NotificationPage(userIdLogged: widget.userIdLogge),
+    ProfilePage(
       userIdLogged: widget.userIdLogged,
       setLoggedOut: widget.setLoggedOut,
     ),
@@ -49,7 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      extendBody: true,
       backgroundColor: _selectedNavbar == 0 ? Colors.black : Colors.white,
       appBar: AppBar(
         toolbarOpacity: 0.2,
@@ -95,7 +92,10 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      body: Center(child: _widgetOptions.elementAt(_selectedNavbar)),
+      body: IndexedStack(
+        index: _selectedNavbar,
+        children: _widgetOptions,
+      ),
       bottomNavigationBar: bottomNavbar(),
     );
   }
