@@ -69,7 +69,7 @@ class _AssistState extends State<Assist> {
   void _scrollToBottom() {
     _scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
-      duration: Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
     );
   }
@@ -92,7 +92,7 @@ class _AssistState extends State<Assist> {
                             ? Alignment.centerRight
                             : Alignment.centerLeft,
                         child: Container(
-                          padding: EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(15),
                           margin: EdgeInsets.fromLTRB(
                               message.isSentByMe ? 100 : 10,
                               5,
@@ -101,10 +101,10 @@ class _AssistState extends State<Assist> {
                           decoration: BoxDecoration(
                             color: message.isSentByMe
                                 ? Colors.blue
-                                : Color.fromARGB(255, 237, 237, 237),
+                                : const Color.fromARGB(255, 237, 237, 237),
                             borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
+                                topLeft: const Radius.circular(20),
+                                topRight: const Radius.circular(20),
                                 bottomRight: Radius.circular(
                                     message.isSentByMe ? 0 : 20),
                                 bottomLeft: Radius.circular(
@@ -153,7 +153,7 @@ class _AssistState extends State<Assist> {
                               color: Colors.lightBlue[300]!,
                               radius: 10,
                               numberOfDots: 3,
-                              animationDuration: Duration(milliseconds: 600),
+                              animationDuration: const Duration(milliseconds: 600),
                             )
                           ],
                         ),
@@ -173,7 +173,7 @@ class _AssistState extends State<Assist> {
                   child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: askIdeas.length,
-                      separatorBuilder: (context, index) => SizedBox(
+                      separatorBuilder: (context, index) => const SizedBox(
                             width: 3,
                           ),
                       itemBuilder: (context, index) {
@@ -192,11 +192,11 @@ class _AssistState extends State<Assist> {
                             },
                             child: Text(
                               askIdeas[index],
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ));
                       }),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 Padding(
@@ -208,8 +208,8 @@ class _AssistState extends State<Assist> {
                           Expanded(
                             child: TextField(
                               controller: _controller,
-                              style: TextStyle(color: Colors.black),
-                              decoration: InputDecoration(
+                              style: const TextStyle(color: Colors.black),
+                              decoration: const InputDecoration(
                                 hintText: 'Minta saran ke Gemini...',
                                 fillColor: Colors.black,
                                 enabledBorder: OutlineInputBorder(
@@ -232,24 +232,24 @@ class _AssistState extends State<Assist> {
                             ),
                           ),
                           IconButton(
-                            icon: Icon(Icons.send),
+                            icon: const Icon(Icons.send),
                             onPressed: _sendMessage,
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 5,
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('Powered by ', style: TextStyle(fontSize: 12)),
+                          const Text('Powered by ', style: TextStyle(fontSize: 12)),
                           Icon(
                             Icons.auto_awesome,
                             size: 12,
                             color: Colors.lightBlue[300],
                           ),
-                          Text(' Gemini AI', style: TextStyle(fontSize: 12)),
+                          const Text(' Gemini AI', style: TextStyle(fontSize: 12)),
                         ],
                       )
                     ],
