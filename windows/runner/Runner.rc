@@ -93,7 +93,7 @@ BEGIN
             VALUE "FileDescription", "zenst" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "zenst" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.zenst.setup All rights reserved." "\0"
             VALUE "OriginalFilename", "zenst.exe" "\0"
             VALUE "ProductName", "zenst" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

@@ -95,7 +95,7 @@ class _NotificationPageState extends State<NotificationPage> {
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.all(Radius.circular(99)),
                         image: DecorationImage(
-                            image: AssetImage('assets/images/Zenst-logo.png'),
+                            image: AssetImage('assets/images/zenst-logo.png'),
                             fit: BoxFit.cover))),
                 const SizedBox(
                   width: 10,

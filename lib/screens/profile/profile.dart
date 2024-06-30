@@ -196,7 +196,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const BorderRadius.all(Radius.circular(99)),
                               image: const DecorationImage(
                                   image: AssetImage(
-                                      'assets/images/Zenst-logo.png'),
+                                      'assets/images/zenst-logo.png'),
                                   fit: BoxFit.cover))),
                     ),
                   ],
