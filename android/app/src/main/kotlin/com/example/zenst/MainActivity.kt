@@ -1,4 +1,4 @@
-package com.example.zenst
+package com.zenst.setup
 
 import io.flutter.embedding.android.FlutterActivity
 

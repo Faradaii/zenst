@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:zenst/Models/user.dart';
-import 'package:zenst/databases/db_helper.dart';
-import 'package:zenst/screens/authentication/register_screen.dart';
+import 'package:Zenst/Models/user.dart';
+import 'package:Zenst/databases/db_helper.dart';
+import 'package:Zenst/screens/authentication/register_screen.dart';
 
 class LoginPage extends StatefulWidget {
   final Function(int) setIsLogged;
@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   bool hidePassword = true;
   DatabaseHelper db = DatabaseHelper();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  
+
   TextEditingController? name;
   TextEditingController? email;
   TextEditingController? password;
@@ -209,7 +209,8 @@ class _LoginPageState extends State<LoginPage> {
                                     child: Checkbox(
                                         value: keepSignedIn,
                                         activeColor: Colors.lightBlue[300],
-                                        side: const BorderSide(color: Colors.black),
+                                        side: const BorderSide(
+                                            color: Colors.black),
                                         onChanged: (bool? value) =>
                                             setState(() {
                                               keepSignedIn = value!;

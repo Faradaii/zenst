@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zenst/databases/db_helper.dart';
-import 'package:zenst/models/user.dart';
+import 'package:Zenst/databases/db_helper.dart';
+import 'package:Zenst/models/user.dart';
 
 class ProfileDetailPage extends StatefulWidget {
   final User user;

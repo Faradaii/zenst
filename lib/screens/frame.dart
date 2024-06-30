@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:zenst/screens/assist/assist.dart';
-import 'package:zenst/screens/discover/discover.dart';
-import 'package:zenst/screens/notification/notification.dart';
-import 'package:zenst/screens/picks/picks.dart';
-import 'package:zenst/screens/profile/profile.dart';
+import 'package:Zenst/screens/assist/assist.dart';
+import 'package:Zenst/screens/discover/discover.dart';
+import 'package:Zenst/screens/notification/notification.dart';
+import 'package:Zenst/screens/picks/picks.dart';
+import 'package:Zenst/screens/profile/profile.dart';
 
 class MyHomePage extends StatefulWidget {
   final Function() setLoggedOut;
@@ -55,9 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: _selectedNavbar == 0
-                    ? Colors.black
-                    : Colors.white,
+                color: _selectedNavbar == 0 ? Colors.black : Colors.white,
                 spreadRadius: _selectedNavbar == 0 ? 0 : 10,
                 blurRadius: _selectedNavbar == 0 ? 0 : 10,
                 offset: _selectedNavbar == 0

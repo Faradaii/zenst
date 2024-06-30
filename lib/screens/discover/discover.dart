@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:jumping_dot/jumping_dot.dart';
-import 'package:zenst/models/bookmark.dart';
-import 'package:zenst/databases/db_helper.dart';
-import 'package:zenst/models/apis/videos.dart';
-import 'package:zenst/screens/discover/components/videopost.dart';
-import 'package:zenst/services/api_service.dart';
+import 'package:Zenst/models/bookmark.dart';
+import 'package:Zenst/databases/db_helper.dart';
+import 'package:Zenst/models/apis/videos.dart';
+import 'package:Zenst/screens/discover/components/videopost.dart';
+import 'package:Zenst/services/api_service.dart';
 
 class DiscoverPage extends StatefulWidget {
   final int userIdLogged;
@@ -304,7 +304,8 @@ class _DiscoverPageState extends State<DiscoverPage>
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         border: Border.all(color: Colors.white),
-                        borderRadius: const BorderRadius.all(Radius.circular(99)),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(99)),
                         image: DecorationImage(
                             image: NetworkImage(videos[index].musicCover),
                             fit: BoxFit.cover))),

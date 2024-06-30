@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:zenst/databases/db_helper.dart';
-import 'package:zenst/models/user.dart';
-import 'package:zenst/screens/authentication/login_screen.dart';
-import 'package:zenst/screens/authentication/registerSuccess.dart';
+import 'package:Zenst/databases/db_helper.dart';
+import 'package:Zenst/models/user.dart';
+import 'package:Zenst/screens/authentication/login_screen.dart';
+import 'package:Zenst/screens/authentication/registerSuccess.dart';
 
 class RegisterForm extends StatefulWidget {
   final Function(int) setIsLogged;

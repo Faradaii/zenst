@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zenst/screens/authentication/register_screen.dart';
-import 'package:zenst/screens/frame.dart';
+import 'package:Zenst/screens/authentication/register_screen.dart';
+import 'package:Zenst/screens/frame.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,7 +24,6 @@ class _MyAppState extends State<MyApp> {
         isLogged = true;
         userIdLogged = userId;
       });
-
     }
 
     void setLoggedOut() {

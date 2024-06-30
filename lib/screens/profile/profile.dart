@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:zenst/databases/db_helper.dart';
-import 'package:zenst/models/user.dart';
-import 'package:zenst/screens/profile/itemSavedPage.dart';
-import 'package:zenst/screens/profile/profileDetailPage.dart';
+import 'package:Zenst/databases/db_helper.dart';
+import 'package:Zenst/models/user.dart';
+import 'package:Zenst/screens/profile/itemSavedPage.dart';
+import 'package:Zenst/screens/profile/profileDetailPage.dart';
 
 class ProfilePage extends StatefulWidget {
   final Function() setLoggedOut;
@@ -30,11 +30,10 @@ class _ProfilePageState extends State<ProfilePage> {
             future: _user,
             builder: (context, snapshot) {
               if (snapshot.hasError || !snapshot.hasData) {
-                return const Text('ok');
+                return const Text('Error');
               } else {
                 final user = snapshot.data!;
-                return SizedBox(
-                  width: MediaQuery.of(context).size.width,
+                return SingleChildScrollView(
                   child: Column(children: [
                     Container(
                         margin: const EdgeInsets.only(top: 25, bottom: 10),
@@ -130,7 +129,7 @@ class _ProfilePageState extends State<ProfilePage> {
         final size = MediaQuery.of(context).size;
         return Center(
           child: Dialog(
-              backgroundColor: Colors.transparent, 
+              backgroundColor: Colors.transparent,
               elevation: 1,
               child: SizedBox(
                 height: size.height * .6,
@@ -197,7 +196,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   const BorderRadius.all(Radius.circular(99)),
                               image: const DecorationImage(
                                   image: AssetImage(
-                                      'assets/images/zenst-logo.png'),
+                                      'assets/images/Zenst-logo.png'),
                                   fit: BoxFit.cover))),
                     ),
                   ],

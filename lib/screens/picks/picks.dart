@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zenst/Models/product.dart';
+import 'package:Zenst/Models/product.dart';
 
 class PicksPage extends StatefulWidget {
   const PicksPage({super.key});

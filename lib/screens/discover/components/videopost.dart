@@ -3,7 +3,7 @@ import 'package:jumping_dot/jumping_dot.dart';
 import 'package:wakelock/wakelock.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
-import 'package:zenst/models/apis/videos.dart';
+import 'package:Zenst/models/apis/videos.dart';
 
 class VideoPost extends StatefulWidget {
   final Video video;
@@ -30,7 +30,7 @@ class _VideoPostState extends State<VideoPost>
         VideoPlayerController.networkUrl((Uri.parse(widget.video.videoUrl)));
     _initializeVideoPlayerFuture = _controller.initialize().then((_) {
       _controller.play();
-      setState(() {}); 
+      setState(() {});
       Wakelock.enable();
     });
     _controller.setLooping(true);

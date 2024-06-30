@@ -1,9 +1,9 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'package:zenst/models/user.dart';
-import 'package:zenst/models/notification.dart';
-import 'package:zenst/models/bookmark.dart';
+import 'package:Zenst/models/user.dart';
+import 'package:Zenst/models/notification.dart';
+import 'package:Zenst/models/bookmark.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._internal();

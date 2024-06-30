@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jumping_dot/jumping_dot.dart';
-import 'package:zenst/databases/db_helper.dart';
-import 'package:zenst/models/bookmark.dart';
+import 'package:Zenst/databases/db_helper.dart';
+import 'package:Zenst/models/bookmark.dart';
 
 class ItemSavedPage extends StatefulWidget {
   final int userIdLogged;

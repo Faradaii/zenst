@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zenst/models/notification.dart';
-import 'package:zenst/databases/db_helper.dart';
+import 'package:Zenst/models/notification.dart';
+import 'package:Zenst/databases/db_helper.dart';
 
 class NotificationPage extends StatefulWidget {
   final int userIdLogged;
@@ -95,7 +95,7 @@ class _NotificationPageState extends State<NotificationPage> {
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.all(Radius.circular(99)),
                         image: DecorationImage(
-                            image: AssetImage('assets/images/zenst-logo.png'),
+                            image: AssetImage('assets/images/Zenst-logo.png'),
                             fit: BoxFit.cover))),
                 const SizedBox(
                   width: 10,

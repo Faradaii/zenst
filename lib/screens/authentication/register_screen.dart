@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:zenst/models/user.dart';
-import 'package:zenst/screens/authentication/login_screen.dart';
-import 'package:zenst/screens/authentication/registerForm.dart';
+import 'package:Zenst/models/user.dart';
+import 'package:Zenst/screens/authentication/login_screen.dart';
+import 'package:Zenst/screens/authentication/registerForm.dart';
 
 class RegisterPage extends StatefulWidget {
   final Function(int) setIsLogged;
@@ -66,7 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Get \nPreferences \nSetup Quickly!',
+                        'Discover \nEndless Setup \nPossibilities!',
                         textAlign: TextAlign.left,
                         style: TextStyle(
                             decoration: TextDecoration.none,

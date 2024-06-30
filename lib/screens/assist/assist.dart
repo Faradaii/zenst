@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jumping_dot/jumping_dot.dart';
-import 'package:zenst/services/api_service.dart';
+import 'package:Zenst/services/api_service.dart';
 import 'package:typewritertext/typewritertext.dart';
 
 class AssistPage extends StatefulWidget {
@@ -153,7 +153,8 @@ class _AssistPageState extends State<AssistPage> {
                               color: Colors.lightBlue[300]!,
                               radius: 10,
                               numberOfDots: 3,
-                              animationDuration: const Duration(milliseconds: 600),
+                              animationDuration:
+                                  const Duration(milliseconds: 600),
                             )
                           ],
                         ),
@@ -243,13 +244,15 @@ class _AssistPageState extends State<AssistPage> {
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Text('Powered by ', style: TextStyle(fontSize: 12)),
+                          const Text('Powered by ',
+                              style: TextStyle(fontSize: 12)),
                           Icon(
                             Icons.auto_awesome,
                             size: 12,
                             color: Colors.lightBlue[300],
                           ),
-                          const Text(' Gemini AI', style: TextStyle(fontSize: 12)),
+                          const Text(' Gemini AI',
+                              style: TextStyle(fontSize: 12)),
                         ],
                       )
                     ],

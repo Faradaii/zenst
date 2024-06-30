@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zenst/screens/authentication/login_screen.dart';
+import 'package:Zenst/screens/authentication/login_screen.dart';
 
 class RegisterSuccess extends StatefulWidget {
   final Function(int) setIsLogged;
