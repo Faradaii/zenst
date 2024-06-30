@@ -61,17 +61,6 @@ class DatabaseHelper {
         FOREIGN KEY(userId) REFERENCES users(id)
       )
     ''');
-
-    await db.execute('''
-      CREATE TABLE product (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        description TEXT,
-        price REAL,
-        imagePath TEXT,
-        totalSold INTEGER
-      )
-    ''');
   }
 
   Future<void> insertUser(User user) async {
