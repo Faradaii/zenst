@@ -10,7 +10,7 @@ class ApiService {
     'techtok%20inspiration'
   ];
 
-  final apiKeyGemini = "AIzaSyC3zlaQHxHOb5xEwK0XCSz3InTOaKH7wcQ";
+  final apiKeyGemini = "";
   final apiUrlGemini = Uri.https('generativelanguage.googleapis.com',
       '/v1/models/gemini-1.5-flash:generateContent', {
     'key': "",
