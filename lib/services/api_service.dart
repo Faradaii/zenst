@@ -13,7 +13,7 @@ class ApiService {
   final apiKeyGemini = "AIzaSyC3zlaQHxHOb5xEwK0XCSz3InTOaKH7wcQ";
   final apiUrlGemini = Uri.https('generativelanguage.googleapis.com',
       '/v1/models/gemini-1.5-flash:generateContent', {
-    'key': "AIzaSyC3zlaQHxHOb5xEwK0XCSz3InTOaKH7wcQ",
+    'key': "",
   });
 
   static Map<String, dynamic> body = {"contents": <Map<String, dynamic>>[]};
@@ -23,7 +23,7 @@ class ApiService {
       Uri.parse(
           'https://tiktok-video-feature-summary.p.rapidapi.com/feed/search?keywords=${keywordList[Random().nextInt(keywordList.length)]}&count=10'),
       headers: {
-        'x-rapidapi-key': '7eda1fb120msh29f95f6425bb565p134d94jsn173ac2222664',
+        'x-rapidapi-key': '',
         'x-rapidapi-host': 'tiktok-video-feature-summary.p.rapidapi.com',
       },
     );
