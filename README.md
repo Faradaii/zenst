@@ -1,4 +1,5 @@
 # Zenst
+<img width="1920" alt="zenst-landscape" src="https://github.com/user-attachments/assets/c6b99a82-965e-4f03-a6ed-ff3c01856635">
 
 Zenst is an app designed to help you find inspiration and guidance in setting up your dream workspace. Tired of cookie-cutter experiences? Take control with Zenst, the app that lets you craft a setup as unique as you are.
 
